@@ -1,0 +1,64 @@
+{
+  "name": "@aldahick/polcli",
+  "description": "A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)",
+  "version": "0.0.1",
+  "author": "Alex Hicks @aldahick",
+  "bin": {
+    "polcli": "./bin/run"
+  },
+  "bugs": "https://github.com/aldahick/polcli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.4.2",
+    "@oclif/config": "^1.3.59",
+    "@oclif/errors": "^1.0.2",
+    "@oclif/plugin-help": "^1.1.6",
+    "globby": "^8.0.1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.3.1",
+    "@oclif/test": "^1.0.1",
+    "@oclif/tslint": "^1.0.2",
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^9.4.7",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.4",
+    "ts-node": "5",
+    "tslib": "^1.9.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    ".oclif.manifest.json",
+    "/bin",
+    "/lib"
+  ],
+  "homepage": "https://github.com/aldahick/polcli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "polcli",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "aldahick/polcli",
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "clean": "rm -f .oclif.manifest.json",
+    "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
+    "postpublish": "yarn run clean",
+    "posttest": "yarn run lint",
+    "prepublishOnly": "yarn run build && oclif-dev manifest",
+    "preversion": "yarn run clean",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}

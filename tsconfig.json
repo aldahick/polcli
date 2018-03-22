@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "./lib",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "pretty": true,
+    "sourceMap": true,
+    "rootDirs": [
+      "./src"
+    ],
+    "strict": true,
+    "target": "es2017"
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
