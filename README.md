@@ -22,7 +22,7 @@ $ npm install -g polcli
 $ polcli COMMAND
 running command...
 $ polcli (-v|--version|version)
-polcli/0.0.4 win32-x64 node-v8.9.4
+polcli/0.0.5 win32-x64 node-v8.9.4
 $ polcli --help [COMMAND]
 USAGE
   $ polcli COMMAND
@@ -45,11 +45,12 @@ USAGE
 
 OPTIONS
   -H, --excludeHouse       exclude House data in analysis
+  -P, --excludePresident   exclude Presidential data in analysis
   -S, --excludeSenate      exclude Senate data in analysis
   -f, --filename=filename  JSON file to read election data from
 ```
 
-_See code: [src/commands/analyze/summary.ts](https://github.com/aldahick/polcli/blob/v0.0.4/src/commands/analyze/summary.ts)_
+_See code: [src/commands/analyze/summary.ts](https://github.com/aldahick/polcli/blob/v0.0.5/src/commands/analyze/summary.ts)_
 
 ## download:fec FILENAME
 
@@ -63,10 +64,10 @@ ARGUMENTS
   FILENAME  filename to write JSON to
 
 OPTIONS
-  -y, --year=year  [default: 2018] year to download data for
+  -y, --year=year  [default: 2018] year(s) to download data for (comma-separated)
 ```
 
-_See code: [src/commands/download/fec.ts](https://github.com/aldahick/polcli/blob/v0.0.4/src/commands/download/fec.ts)_
+_See code: [src/commands/download/fec.ts](https://github.com/aldahick/polcli/blob/v0.0.5/src/commands/download/fec.ts)_
 
 ## help [COMMAND]
 
