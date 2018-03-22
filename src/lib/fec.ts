@@ -2,67 +2,26 @@ import * as oclif from "@oclif/command";
 import * as request from "request";
 import * as requestPromise from "request-promise";
 import * as zip from "../helpers/zip";
+import Campaign from "./interfaces/Campaign";
 
-export async function getForYear(year: string): Promise<Campaign[]> {
-    // based on https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
-    const baseFilename = "weball" + year.substr(2);
-    const url = `https://www.fec.gov/files/bulk-downloads/${year}/${baseFilename}.zip`;
-    const response: request.Response = await requestPromise.get(url, {
-        resolveWithFullResponse: true,
-        // need null, not undefined
-        // tslint:disable-next-line
-        encoding: null
-    });
-    if (response.statusCode === 404) {
-        throw new Error("Couldn't find FEC data for " + year);
+export default class FEC {
+    public static async getForYear(year: string): Promise<Campaign[]> {
+        // based on https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
+        const baseFilename = "weball" + year.substr(2);
+        const url = `https://www.fec.gov/files/bulk-downloads/${year}/${baseFilename}.zip`;
+        const response: request.Response = await requestPromise.get(url, {
+            resolveWithFullResponse: true,
+            // need null, not undefined
+            // tslint:disable-next-line
+            encoding: null
+        });
+        if (response.statusCode === 404) {
+            throw new Error("Couldn't find FEC data for " + year);
+        }
+        const rawData = await zip.readFile(response.body, baseFilename + ".txt");
+        return rawData.split("\n").map(line => mapRawRow(line.split("|")));
     }
-    const rawData = await zip.readFile(response.body, baseFilename + ".txt");
-    return rawData.split("\n").map(line => mapRawRow(line.split("|")));
 }
-
-export interface Campaign {
-    candidate: {
-        id: string;
-        name: string;
-        isIncumbent: boolean;
-        party: string;
-        state: string;
-        district: string;
-    };
-    totalReceipts: number;
-    authorizedCommitteeTransfers: {
-        from: number;
-        to: number;
-    };
-    disbursements: number;
-    cashOnHand: {
-        initial: number;
-        final: number;
-    };
-    contributions: {
-        candidate: number;
-        individual: number;
-        pac: number;
-        party: number;
-    };
-    loans: {
-        candidate: {
-            given: number;
-            repaid: number;
-        };
-        other: {
-            given: number;
-            repaid: number;
-        };
-        owed: number;
-    };
-    refunds: {
-        individual: number;
-        committee: number;
-    };
-    end: Date;
-}
-
 
 function mapRawRow(tokens: string[]): Campaign {
     return {
