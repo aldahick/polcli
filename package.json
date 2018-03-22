@@ -1,7 +1,7 @@
 {
   "name": "polcli",
   "description": "A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Alex Hicks @aldahick",
   "bin": {
     "polcli": "./bin/run"

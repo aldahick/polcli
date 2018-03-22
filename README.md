@@ -18,7 +18,7 @@ $ npm install -g polcli
 $ polcli COMMAND
 running command...
 $ polcli (-v|--version|version)
-polcli/0.0.1 win32-x64 node-v8.9.4
+polcli/0.0.2 win32-x64 node-v8.9.4
 $ polcli --help [COMMAND]
 USAGE
   $ polcli COMMAND
@@ -45,7 +45,7 @@ OPTIONS
   -y, --year=year  [default: 2018] year to download data for
 ```
 
-_See code: [src/commands/download/fec.ts](https://github.com/aldahick/polcli/blob/v0.0.1/src/commands/download/fec.ts)_
+_See code: [src/commands/download/fec.ts](https://github.com/aldahick/polcli/blob/v0.0.2/src/commands/download/fec.ts)_
 
 ## help [COMMAND]
 
