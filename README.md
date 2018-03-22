@@ -3,7 +3,7 @@ polcli
 
 A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 
-[![Version](https://img.shields.io/npm/v/@aldahick/polcli.svg)](https://npmjs.org/package/polcli)
+[![Version](https://img.shields.io/npm/v/polcli.svg)](https://npmjs.org/package/polcli)
 [![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield)](https://circleci.com/gh/aldahick/polcli/tree/master)
 
 <!-- toc -->
