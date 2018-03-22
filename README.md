@@ -5,12 +5,6 @@ A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 
 [![Version](https://img.shields.io/npm/v/@aldahick/polcli.svg)](https://npmjs.org/package/@aldahick/polcli)
 [![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield)](https://circleci.com/gh/aldahick/polcli/tree/master)
-[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/aldahick/polcli?branch=master&svg=true)](https://ci.appveyor.com/project/aldahick/polcli/branch/master)
-[![Codecov](https://codecov.io/gh/aldahick/polcli/branch/master/graph/badge.svg)](https://codecov.io/gh/aldahick/polcli)
-[![Greenkeeper](https://badges.greenkeeper.io/aldahick/polcli.svg)](https://greenkeeper.io/)
-[![Known Vulnerabilities](https://snyk.io/test/github/aldahick/polcli/badge.svg)](https://snyk.io/test/github/aldahick/polcli)
-[![Downloads/week](https://img.shields.io/npm/dw/@aldahick/polcli.svg)](https://npmjs.org/package/@aldahick/polcli)
-[![License](https://img.shields.io/npm/l/@aldahick/polcli.svg)](https://github.com/aldahick/polcli/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
