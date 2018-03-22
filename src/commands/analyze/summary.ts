@@ -10,6 +10,10 @@ export default class AnalyzeSummary extends oclif.Command {
             char: "f",
             description: "JSON file to read election data from"
         }),
+        excludePresident: oclif.flags.boolean({
+            char: "P",
+            description: "exclude Presidential data in analysis"
+        }),
         excludeSenate: oclif.flags.boolean({
             char: "S",
             description: "exclude Senate data in analysis"
@@ -24,31 +28,29 @@ export default class AnalyzeSummary extends oclif.Command {
     public async run(): Promise<void> {
         const {flags} = this.parse(AnalyzeSummary);
         const campaigns = await lib.campaigns.get(flags.filename!, flags);
-        const fromAllParties = (worker: (campaigns: lib.Campaign[]) => string | number, alignRight = true): {[key: string]: string | number} => {
-            const values: {[key: string]: string} = {
-                "All": worker(campaigns.all).toString(),
-                "Democratic": worker(campaigns.democrat).toString(),
-                "Republican": worker(campaigns.republican).toString(),
-                "Independent": worker(campaigns.independent).toString()
+        const fromAllParties = (worker: (campaigns: lib.Campaign[]) => number, alignRight = true, prefix = ""): {[key: string]: string} => {
+            const rawValues: {[key: string]: number} = {
+                "All": worker(campaigns.all),
+                "Democratic": worker(campaigns.democrat),
+                "Republican": worker(campaigns.republican),
+                "Independent": worker(campaigns.independent)
             };
-            if (alignRight) {
-                const largestValueLength = Object.values(values).reduce((p, v) => Math.max(p, v.length), 0);
-                for (const label in values) values[label] = _.padStart(values[label], largestValueLength);
-            }
+            const largestValueLength = Object.values(rawValues).reduce((p, v) => Math.max(p, v.toLocaleString().length), 0);
+            const values: {[key: string]: string} = {};
+            Object.keys(rawValues).forEach(label => {
+                let str = prefix + rawValues[label].toLocaleString();
+                if (alignRight) str = _.padStart(str, largestValueLength + prefix.length);
+                values[label] = str + " (" + (100 * rawValues[label] / rawValues.All).toFixed(2) + "%)";
+            });
             return values;
         };
         const stats: {[key: string]: {[key: string]: string | number}} = {
             "Count": fromAllParties(cs => cs.length),
-            "Total Contributions": fromAllParties(cs => "$" +
-                _.sum(cs.map(c => _.sum(Object.values(c.contributions)))).toLocaleString()),
-            "Individual Contributions": fromAllParties(cs => "$" +
-                _.sum(cs.map(c => c.contributions.individual)).toLocaleString()),
-            "Party Contributions": fromAllParties(cs => "$" +
-                _.sum(cs.map(c => c.contributions.party)).toLocaleString()),
-            "PAC Contributions": fromAllParties(cs => "$" +
-                _.sum(cs.map(c => c.contributions.pac)).toLocaleString()),
-            "Candidate Contributions": fromAllParties(cs => "$" +
-                _.sum(cs.map(c => c.contributions.candidate)).toLocaleString())
+            "Total Contributions": fromAllParties(cs => _.sum(cs.map(c => _.sum(Object.values(c.contributions)))), true, "$"),
+            "Individual Contributions": fromAllParties(cs => _.sum(cs.map(c => c.contributions.individual)), true, "$"),
+            "Party Contributions": fromAllParties(cs => _.sum(cs.map(c => c.contributions.party)), true, "$"),
+            "PAC Contributions": fromAllParties(cs => _.sum(cs.map(c => c.contributions.pac)), true, "$"),
+            "Candidate Contributions": fromAllParties(cs => _.sum(cs.map(c => c.contributions.candidate)), true, "$")
         };
         Object.keys(stats).forEach(category => {
             console.log("# " + category);
