@@ -1,9 +1,9 @@
-@aldahick/polcli
+polcli
 ================
 
 A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 
-[![Version](https://img.shields.io/npm/v/@aldahick/polcli.svg)](https://npmjs.org/package/@aldahick/polcli)
+[![Version](https://img.shields.io/npm/v/@aldahick/polcli.svg)](https://npmjs.org/package/polcli)
 [![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield)](https://circleci.com/gh/aldahick/polcli/tree/master)
 
 <!-- toc -->
@@ -14,11 +14,11 @@ A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 # Usage
 
 ```sh-session
-$ npm install -g @aldahick/polcli
+$ npm install -g polcli
 $ polcli COMMAND
 running command...
 $ polcli (-v|--version|version)
-@aldahick/polcli/0.0.1 win32-x64 node-v8.9.4
+polcli/0.0.1 win32-x64 node-v8.9.4
 $ polcli --help [COMMAND]
 USAGE
   $ polcli COMMAND
@@ -28,26 +28,24 @@ USAGE
 <!-- commands -->
 # Commands
 
-* [polcli hello [FILE]](#hello-file)
+* [polcli download:fec FILENAME](#downloadfec-filename)
 * [polcli help [COMMAND]](#help-command)
-## hello [FILE]
+## download:fec FILENAME
 
-describe the command here
+download FEC campaign data for a given year and outputs it as JSON
 
 ```
 USAGE
-  $ polcli hello [FILE]
+  $ polcli download:fec FILENAME
+
+ARGUMENTS
+  FILENAME  filename to write JSON to
 
 OPTIONS
-  -f, --force
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ polcli hello
-  hello world from ./src/hello.ts!
+  -y, --year=year  [default: 2018] year to download data for
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/aldahick/polcli/blob/v0.0.1/src/commands/hello.ts)_
+_See code: [src/commands/download/fec.ts](https://github.com/aldahick/polcli/blob/v0.0.1/src/commands/download/fec.ts)_
 
 ## help [COMMAND]
 

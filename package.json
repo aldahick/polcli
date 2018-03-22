@@ -1,5 +1,5 @@
 {
-  "name": "@aldahick/polcli",
+  "name": "polcli",
   "description": "A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)",
   "version": "0.0.1",
   "author": "Alex Hicks @aldahick",

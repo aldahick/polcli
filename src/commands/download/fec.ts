@@ -8,22 +8,21 @@ import * as zip from "../../helpers/zip";
 export default class DownloadFEC extends oclif.Command {
     public static description = "download FEC campaign data for a given year and outputs it as JSON";
     public static examples: string[] = [];
-    public static args = [];
+    public static args = [{
+        name: "filename",
+        description: "filename to write JSON to",
+        required: true
+    }];
     public static flags = {
         year: oclif.flags.string({
             char: "y",
             description: "year to download data for",
             default: new Date().getFullYear().toString()
-        }),
-        filename: oclif.flags.string({
-            char: "f",
-            description: "filename to write JSON to",
-            required: true
         })
     };
 
     public async run(): Promise<void> {
-        const {flags} = this.parse(DownloadFEC);
+        const {flags, args} = this.parse(DownloadFEC);
         // based on https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
         const baseFilename = "weball" + flags.year!.substr(2);
         const url = `https://www.fec.gov/files/bulk-downloads/${flags.year}/${baseFilename}.zip`;
@@ -38,9 +37,9 @@ export default class DownloadFEC extends oclif.Command {
         }
         const rawData = await zip.readFile(response.body, baseFilename + ".txt");
         const mapped = rawData.split("\n").map(line => DownloadFEC.mapRow(line.split("|")));
-        await fs.mkdirp(path.dirname(flags.filename));
-        await fs.writeFile(flags.filename, JSON.stringify(mapped, undefined, 2));
-        console.log(`Wrote ${mapped.length} rows to ${flags.filename}`);
+        await fs.mkdirp(path.dirname(args.filename));
+        await fs.writeFile(args.filename, JSON.stringify(mapped, undefined, 2));
+        console.log(`Wrote ${mapped.length} rows to ${args.filename}`);
     }
 
     private static mapRow(tokens: string[]): {[key: string]: any} {
