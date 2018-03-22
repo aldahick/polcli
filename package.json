@@ -53,7 +53,7 @@
   "scripts": {
     "build": "rm -rf lib && tsc",
     "clean": "rm -f .oclif.manifest.json",
-    "lint": "tsc -p . --noEmit && tslint -p . -t stylish",
+    "lint": "tslint -p . -t stylish",
     "postpublish": "yarn run clean",
     "posttest": "yarn run lint",
     "prepublishOnly": "yarn run build && oclif-dev manifest",

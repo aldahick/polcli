@@ -58,9 +58,9 @@ workflows:
   build:
     jobs:
       - checkout
-      - lint:
+      - build:
           requires:
             - checkout
-      - build:
+      - lint:
           requires:
             - lint
