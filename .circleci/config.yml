@@ -63,4 +63,4 @@ workflows:
             - checkout
       - lint:
           requires:
-            - lint
+            - build
