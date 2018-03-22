@@ -6,6 +6,10 @@ A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 [![Version](https://img.shields.io/npm/v/polcli.svg)](https://npmjs.org/package/polcli)
 [![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield)](https://circleci.com/gh/aldahick/polcli/tree/master)
 
+Goals of this project (perpetually unchecked, because we can always do better):
+- [ ] Provide lower barrier to accessing raw data relating to elections (FEC in particular)
+- [ ] Provide basic statistical aggregation of election data (specifically relating to party and financial data)
+
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
