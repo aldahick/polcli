@@ -1,4 +1,5 @@
 export default interface Campaign {
+    year: string;
     candidate: {
         id: string;
         name: string;

@@ -14,14 +14,15 @@ export default class DownloadFEC extends oclif.Command {
     public static flags = {
         year: oclif.flags.string({
             char: "y",
-            description: "year to download data for",
+            description: "year(s) to download data for (comma-separated)",
             default: new Date().getFullYear().toString()
         })
     };
 
     public async run(): Promise<void> {
         const {flags, args} = this.parse(DownloadFEC);
-        const campaigns = await lib.fec.getForYear(flags.year!);
+        const years: string[] = flags.year!.split(",").map(y => y.trim());
+        const campaigns = (await Promise.all(years.map(y => lib.fec.getForYear(y)))).reduce((p, v) => p.concat(v));
         await fs.mkdirp(path.dirname(args.filename));
         await fs.writeFile(args.filename, JSON.stringify(campaigns, undefined, 2));
         console.log(`Wrote ${campaigns.length} rows to ${args.filename}`);

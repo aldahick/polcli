@@ -19,12 +19,15 @@ export default class FEC {
             throw new Error("Couldn't find FEC data for " + year);
         }
         const rawData = await zip.readFile(response.body, baseFilename + ".txt");
-        return rawData.split("\n").map(line => mapRawRow(line.split("|")));
+        const campaigns = rawData.split("\n").map(line => mapRawRow(line.split("|")));
+        campaigns.forEach(c => c.year = year);
+        return campaigns;
     }
 }
 
 function mapRawRow(tokens: string[]): Campaign {
     return {
+        year: "",
         candidate: {
             id: tokens[0],
             name: tokens[1],
