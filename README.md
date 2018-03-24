@@ -4,7 +4,7 @@ polcli
 A set of political data-mining tools wrapped in a handy CLI (pronounced pol-sly)
 
 [![Version](https://img.shields.io/npm/v/polcli.svg)](https://npmjs.org/package/polcli)
-[![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield)](https://circleci.com/gh/aldahick/polcli/tree/master)
+[![CircleCI](https://circleci.com/gh/aldahick/polcli/tree/master.svg?style=shield&circle-token=a7335ddc887e40073a232f346ca80b90aa490063)](https://circleci.com/gh/aldahick/polcli/tree/master)
 
 Goals of this project (perpetually unchecked, because we can always do better):
 - [ ] Provide lower barrier to accessing raw data relating to elections (FEC in particular)
