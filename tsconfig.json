@@ -11,11 +11,10 @@
     "preserveConstEnums": true,
     "pretty": true,
     "sourceMap": true,
-    "rootDirs": [
-      "./src"
-    ],
     "strict": true,
-    "target": "es2019"
+    "target": "es2019",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "./src/**/*"
