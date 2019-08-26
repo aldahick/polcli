@@ -6,35 +6,17 @@
   "bin": {
     "polcli": "./bin/run"
   },
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "clean": "rm -f .oclif.manifest.json",
+    "lint": "tslint -p . -t stylish",
+    "postpublish": "yarn run clean",
+    "posttest": "yarn run lint",
+    "prepublishOnly": "yarn run build && oclif-dev manifest",
+    "preversion": "yarn run clean",
+    "version": "oclif-dev readme && git add README.md"
+  },
   "bugs": "https://github.com/aldahick/polcli/issues",
-  "dependencies": {
-    "@oclif/command": "1.5.18",
-    "@oclif/config": "1.13.3",
-    "@oclif/errors": "1.2.2",
-    "@oclif/plugin-help": "2.2.1",
-    "axios": "0.19.0",
-    "fs-extra": "8.1.0",
-    "globby": "10.0.1",
-    "lodash": "4.17.15",
-    "yauzl": "2.10.0"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "1.22.2",
-    "@oclif/test": "1.2.5",
-    "@oclif/tslint": "3.1.1",
-    "@types/chai": "4.2.0",
-    "@types/fs-extra": "8.0.0",
-    "@types/lodash": "4.14.137",
-    "@types/mocha": "^2.2.48",
-    "@types/node": "12.7.2",
-    "@types/yauzl": "2.9.1",
-    "chai": "4.2.0",
-    "mocha": "6.2.0",
-    "ts-node": "8.3.0",
-    "tslib": "1.10.0",
-    "tslint": "5.19.0",
-    "typescript": "3.5.3"
-  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -62,15 +44,33 @@
     }
   },
   "repository": "aldahick/polcli",
-  "scripts": {
-    "build": "rm -rf lib && tsc",
-    "clean": "rm -f .oclif.manifest.json",
-    "lint": "tslint -p . -t stylish",
-    "postpublish": "yarn run clean",
-    "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build && oclif-dev manifest",
-    "preversion": "yarn run clean",
-    "version": "oclif-dev readme && git add README.md"
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "@oclif/command": "1.5.18",
+    "@oclif/config": "1.13.3",
+    "@oclif/errors": "1.2.2",
+    "@oclif/plugin-help": "2.2.1",
+    "axios": "0.19.0",
+    "fs-extra": "8.1.0",
+    "globby": "10.0.1",
+    "lodash": "4.17.15",
+    "yauzl": "2.10.0"
   },
-  "types": "lib/index.d.ts"
+  "devDependencies": {
+    "@oclif/dev-cli": "1.22.2",
+    "@oclif/test": "1.2.5",
+    "@oclif/tslint": "3.1.1",
+    "@types/chai": "4.2.0",
+    "@types/fs-extra": "8.0.0",
+    "@types/lodash": "4.14.137",
+    "@types/mocha": "^2.2.48",
+    "@types/node": "12.7.2",
+    "@types/yauzl": "2.9.1",
+    "chai": "4.2.0",
+    "mocha": "6.2.0",
+    "ts-node": "8.3.0",
+    "tslib": "1.10.0",
+    "tslint": "5.19.0",
+    "typescript": "3.5.3"
+  }
 }
