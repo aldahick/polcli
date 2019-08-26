@@ -1,5 +1,5 @@
-import * as fs from "fs-extra";
 import * as oclif from "@oclif/command";
+import * as fs from "fs-extra";
 import * as path from "path";
 import * as lib from "../../lib/";
 
@@ -20,8 +20,8 @@ export default class DownloadFEC extends oclif.Command {
     };
 
     public async run(): Promise<void> {
-        const {flags, args} = this.parse(DownloadFEC);
-        const years: string[] = flags.year!.split(",").map(y => y.trim());
+        const { flags, args} = this.parse(DownloadFEC);
+        const years: string[] = flags.year.split(",").map(y => y.trim());
         const campaigns = (await Promise.all(years.map(y => lib.fec.getForYear(y)))).reduce((p, v) => p.concat(v));
         await fs.mkdirp(path.dirname(args.filename));
         await fs.writeFile(args.filename, JSON.stringify(campaigns, undefined, 2));

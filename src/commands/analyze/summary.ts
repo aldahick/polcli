@@ -1,7 +1,7 @@
+import * as oclif from "@oclif/command";
+import * as fs from "fs-extra";
 import * as _ from "lodash";
 import * as lib from "../../lib";
-import * as fs from "fs-extra";
-import * as oclif from "@oclif/command";
 
 export default class AnalyzeSummary extends oclif.Command {
     public static description = "analyze US House and Senate elections";
@@ -26,25 +26,25 @@ export default class AnalyzeSummary extends oclif.Command {
     public static args = [];
 
     public async run(): Promise<void> {
-        const {flags} = this.parse(AnalyzeSummary);
+        const { flags} = this.parse(AnalyzeSummary);
         const campaigns = await lib.campaigns.get(flags.filename!, flags);
-        const fromAllParties = (worker: (campaigns: lib.Campaign[]) => number, alignRight = true, prefix = ""): {[key: string]: string} => {
-            const rawValues: {[key: string]: number} = {
-                "All": worker(campaigns.all),
-                "Democratic": worker(campaigns.democrat),
-                "Republican": worker(campaigns.republican),
-                "Independent": worker(campaigns.independent)
+        const fromAllParties = (worker: (campaigns: lib.Campaign[]) => number, alignRight = true, prefix = ""): { [key: string]: string} => {
+            const rawValues: { [key: string]: number} = {
+                All: worker(campaigns.all),
+                Democratic: worker(campaigns.democrat),
+                Republican: worker(campaigns.republican),
+                Independent: worker(campaigns.independent)
             };
             const largestValueLength = Object.values(rawValues).reduce((p, v) => Math.max(p, v.toLocaleString().length), 0);
-            const values: {[key: string]: string} = {};
+            const values: { [key: string]: string} = { };
             Object.keys(rawValues).forEach(label => {
                 let str = prefix + rawValues[label].toLocaleString();
-                if (alignRight) str = _.padStart(str, largestValueLength + prefix.length);
+                if (alignRight) { str = _.padStart(str, largestValueLength + prefix.length); }
                 values[label] = str + " (" + (100 * rawValues[label] / rawValues.All).toFixed(2) + "%)";
             });
             return values;
         };
-        const stats: {[key: string]: {[key: string]: string | number}} = {
+        const stats: { [key: string]: { [key: string]: string | number}} = {
             "Count": fromAllParties(cs => cs.length),
             "Total Contributions": fromAllParties(cs => _.sum(cs.map(c => _.sum(Object.values(c.contributions)))), true, "$"),
             "Individual Contributions": fromAllParties(cs => _.sum(cs.map(c => c.contributions.individual)), true, "$"),
