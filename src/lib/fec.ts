@@ -1,6 +1,4 @@
-import * as oclif from "@oclif/command";
-import * as request from "request";
-import * as requestPromise from "request-promise";
+import axios from "axios";
 import * as zip from "../helpers/zip";
 import Campaign from "./interfaces/Campaign";
 
@@ -8,17 +6,11 @@ export default class FEC {
     public static async getForYear(year: string): Promise<Campaign[]> {
         // based on https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
         const baseFilename = "weball" + year.substr(2);
-        const url = `https://www.fec.gov/files/bulk-downloads/${year}/${baseFilename}.zip`;
-        const response: request.Response = await requestPromise.get(url, {
-            resolveWithFullResponse: true,
-            // need null, not undefined
-            // tslint:disable-next-line
-            encoding: null
-        });
-        if (response.statusCode === 404) {
+        const response = await axios.get(`https://www.fec.gov/files/bulk-downloads/${year}/${baseFilename}.zip`);
+        if (response.status === 404) {
             throw new Error("Couldn't find FEC data for " + year);
         }
-        const rawData = await zip.readFile(response.body, baseFilename + ".txt");
+        const rawData = await zip.readFile(response.data, baseFilename + ".txt");
         const campaigns = rawData.split("\n").map(line => mapRawRow(line.split("|")));
         campaigns.forEach(c => c.year = year);
         return campaigns;
