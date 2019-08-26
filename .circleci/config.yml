@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:8.10
+    - image: circleci/node:10.16
 
 whitelist: &whitelist
   paths:
@@ -26,7 +26,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: npm install
       - save_cache:
           paths:
             - node_modules
@@ -41,7 +41,7 @@ jobs:
           at: ~/repo
       - run:
           name: Lint TypeScript code
-          command: yarn lint
+          command: npm run lint
   build:
     <<: *defaults
     steps:
@@ -49,7 +49,7 @@ jobs:
           at: ~/repo
       - run:
           name: Build TypeScript code
-          command: yarn build
+          command: npm run build
       - persist_to_workspace:
           root: ~/repo
           <<: *whitelist
