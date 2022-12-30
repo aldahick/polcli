@@ -69,7 +69,7 @@
     "@types/node": "12.7.2",
     "@types/yauzl": "2.9.1",
     "chai": "4.2.0",
-    "mocha": "6.2.0",
+    "mocha": "10.2.0",
     "ts-node": "8.3.0",
     "tslib": "1.10.0",
     "tslint": "5.19.0",
